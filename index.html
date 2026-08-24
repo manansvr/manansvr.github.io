@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>manan</title>
+<title>Manan Rathi | Software Engineer & Researcher</title>
+<meta name="description" content="manan is a systems-focused software engineer and researcher based in sydney.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -396,9 +397,10 @@
     </div>
 
     <div class="graph-legend">
-      <span><i style="background:#2f76c2"></i>Manan</span>
+      <span><i style="background:#2f76c2"></i>me</span>
       <span><i style="background:#b26f3d"></i>Industry</span>
       <span><i style="background:#4f8f5b"></i>Academic</span>
+      <span><i style="background:#b85c70"></i>University</span>
     </div>
   </section>
 
@@ -561,38 +563,47 @@
 
   // knowledge graph
   const kgNodes = [
-    { id:'manan',      label:'Manan',                              group:'core',     r:24 },
+    { id:'manan',      label:'me',                                 group:'core',     r:24 },
     { id:'industry',   label:'Industry',                           group:'industry', r:17 },
     { id:'academic',   label:'Academic',                           group:'academic', r:17 },
+    { id:'university', label:'University',                         group:'university', r:17 },
     { id:'macquarie',  label:'Macquarie Group',                    group:'industry', r:12 },
     { id:'anz',        label:'ANZ Bank',                           group:'industry', r:12 },
     { id:'mech',       label:'School of Mechanical & Manufacturing Engineering', group:'academic', r:14 },
     { id:'cse',        label:'School of Computer Science & Engineering', group:'academic', r:14 },
-    { id:'sr8',        label:'SR Racing',                          group:'academic', r:12 },
+    { id:'redback',    label:'RedBack Racing',                     group:'academic', r:12 },
+    { id:'sunswift',   label:'SunSwift Racing',                    group:'academic', r:12 },
+    { id:'external',   label:'External Relations Specialist',      group:'university', r:11 },
     { id:'honours',    label:'Honours Researcher',                 group:'academic', r:11 },
     { id:'teaching',   label:'Teaching Academic',                  group:'academic', r:11 },
     { id:'sal',        label:'Systems Academic Liaison',           group:'academic', r:11 },
-    { id:'se',         label:'Systems Engineer',                   group:'academic', r:11 }
+    { id:'se',         label:'Systems Engineer',                   group:'university', r:11 }
   ];
 
   const kgLinks = [
     { source:'manan', target:'industry' },
     { source:'manan', target:'academic' },
+    { source:'manan', target:'university' },
     { source:'industry', target:'macquarie' },
     { source:'industry', target:'anz' },
     { source:'academic', target:'mech' },
     { source:'academic', target:'cse' },
-    { source:'mech', target:'sr8' },
-    { source:'sr8', target:'se' },
-    { source:'sr8', target:'sal' },
+    { source:'mech', target:'redback' },
+    { source:'mech', target:'sunswift' },
+    { source:'redback', target:'external' },
+    { source:'sunswift', target:'se' },
+    { source:'sunswift', target:'sal' },
+    { source:'university', target:'external' },
     { source:'cse', target:'honours' },
-    { source:'cse', target:'teaching' }
+    { source:'cse', target:'teaching' },
+    { source:'university', target:'se' }
   ];
 
   const groupColor = {
     core:'#2f76c2',
     industry:'#b26f3d',
-    academic:'#4f8f5b'
+    academic:'#4f8f5b',
+    university:'#b85c70'
   };
 
   const kgSvg = d3.select('#kg-svg');
