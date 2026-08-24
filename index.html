@@ -563,25 +563,25 @@
 
   // knowledge graph
   const kgNodes = [
-    { id:'manan',      label:'me',                                 group:'core',     r:24 },
-    { id:'industry',   label:'Industry',                           group:'industry', r:17 },
-    { id:'academic',   label:'Academic',                           group:'academic', r:17 },
-    { id:'university', label:'University',                         group:'university', r:17 },
-    { id:'macquarie',  label:'Macquarie Group',                    group:'industry', r:12 },
-    { id:'anz',        label:'ANZ Bank',                           group:'industry', r:12 },
-    { id:'dovetail',   label:'Dovetail Electric Aviation',         group:'industry', r:12 },
-    { id:'macquarie-role', label:'Associate Software Engineer',    group:'industry', r:11 },
-    { id:'anz-intern', label:'Software Engineer Intern',           group:'industry', r:11 },
-    { id:'dovetail-intern', label:'Software Engineer Intern',       group:'industry', r:11 },
-    { id:'mech',       label:'School of Mechanical & Manufacturing Engineering', group:'academic', r:14 },
-    { id:'cse',        label:'School of Computer Science & Engineering', group:'academic', r:14 },
-    { id:'redback',    label:'RedBack Racing',                     group:'academic', r:12 },
-    { id:'sunswift',   label:'SunSwift Racing',                    group:'academic', r:12 },
-    { id:'external',   label:'External Relations Specialist',      group:'university', r:11 },
-    { id:'honours',    label:'Honours Researcher',                 group:'academic', r:11 },
-    { id:'teaching',   label:'Teaching Academic',                  group:'academic', r:11 },
-    { id:'sal',        label:'Systems Academic Liaison',           group:'academic', r:11 },
-    { id:'se',         label:'Systems Engineer',                   group:'university', r:11 }
+    { id:'manan',      label:'me',                                 group:'core',     level:0, r:24 },
+    { id:'industry',   label:'Industry',                           group:'industry', level:1, r:17 },
+    { id:'academic',   label:'Academic',                           group:'academic', level:1, r:17 },
+    { id:'university', label:'University',                         group:'university', level:1, r:17 },
+    { id:'macquarie',  label:'Macquarie Group',                    group:'industry', level:2, r:12 },
+    { id:'anz',        label:'ANZ Bank',                           group:'industry', level:2, r:12 },
+    { id:'dovetail',   label:'Dovetail Electric Aviation',         group:'industry', level:2, r:12 },
+    { id:'macquarie-role', label:'Associate Software Engineer',    group:'industry', level:3, r:11 },
+    { id:'anz-intern', label:'Software Engineer Intern',           group:'industry', level:3, r:11 },
+    { id:'dovetail-intern', label:'Software Engineer Intern',       group:'industry', level:3, r:11 },
+    { id:'mech',       label:'School of Mechanical & Manufacturing Engineering', group:'academic', level:2, r:14 },
+    { id:'cse',        label:'School of Computer Science & Engineering', group:'academic', level:2, r:14 },
+    { id:'redback',    label:'RedBack Racing',                     group:'academic', level:3, r:12 },
+    { id:'sunswift',   label:'SunSwift Racing',                    group:'academic', level:3, r:12 },
+    { id:'external',   label:'External Relations Specialist',      group:'university', level:4, r:11 },
+    { id:'honours',    label:'Honours Researcher',                 group:'academic', level:3, r:11 },
+    { id:'teaching',   label:'Teaching Academic',                  group:'academic', level:3, r:11 },
+    { id:'sal',        label:'Systems Academic Liaison',           group:'university', level:4, r:11 },
+    { id:'se',         label:'Systems Engineer',                   group:'university', level:4, r:11 }
   ];
 
   const kgLinks = [
@@ -602,6 +602,7 @@
     { source:'sunswift', target:'se' },
     { source:'sunswift', target:'sal' },
     { source:'university', target:'external' },
+    { source:'university', target:'sal' },
     { source:'cse', target:'honours' },
     { source:'cse', target:'teaching' },
     { source:'university', target:'se' }
@@ -632,7 +633,7 @@
 
   nodeSel.append('circle')
     .attr('r', d => d.r)
-    .attr('fill', d => groupColor[d.group]);
+    .attr('fill', d => d3.color(groupColor[d.group]).brighter(d.level * 0.65));
 
   nodeSel.append('text')
     .attr('x', d => d.r + 6)
