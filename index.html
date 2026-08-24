@@ -20,8 +20,22 @@
     --accent:#2f76c2;
     --accent-hover:#225ea6;
     --accent-tint:#e7f3ff;
+    --nav-shadow:rgba(15,15,15,0.06);
     --font: 'Aptos', 'Aptos Display', 'Public Sans', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
     --mono: ui-monospace, 'SF Mono', Menlo, Monaco, Consolas, monospace;
+  }
+
+  body.dark-mode{
+    --bg:#191918;
+    --surface:#242423;
+    --surface-rgb:36,36,35;
+    --border:#3a3a37;
+    --text:#f2f1ed;
+    --text-dim:#aaa9a2;
+    --accent:#70b5ff;
+    --accent-hover:#9bcfff;
+    --accent-tint:#203447;
+    --nav-shadow:rgba(0,0,0,0.24);
   }
 
   *{box-sizing:border-box; margin:0; padding:0;}
@@ -117,6 +131,32 @@
     color:var(--accent);
     border-color:var(--accent);
   }
+  .topnav-links a.active{
+    color:var(--accent);
+    border-color:var(--accent);
+  }
+  .theme-toggle{
+    width:32px;
+    height:32px;
+    display:grid;
+    place-items:center;
+    flex:0 0 auto;
+    margin-left:20px;
+    color:var(--text-dim);
+    background:transparent;
+    border:1px solid transparent;
+    border-radius:6px;
+    cursor:pointer;
+    transition:color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+  .theme-toggle:hover,
+  .theme-toggle:focus-visible{
+    color:var(--accent);
+    border-color:var(--border);
+    background:var(--surface);
+    outline:none;
+  }
+  .theme-toggle svg{ width:17px; height:17px; fill:currentColor; }
 
   section{
     padding:64px 0;
@@ -137,7 +177,7 @@
   /* interfaces / links */
   .interfaces{
     display:grid;
-    grid-template-columns:repeat(5, minmax(0, 1fr));
+    grid-template-columns:repeat(6, minmax(0, 1fr));
     gap:16px;
     padding-bottom:56px;
   }
@@ -189,6 +229,30 @@
   .port:focus-visible::after{
     opacity:1;
     transform:translate(-50%, 0);
+  }
+
+  .research-intro{
+    color:var(--text-dim);
+    max-width:680px;
+    margin-bottom:28px;
+  }
+  .research-entry{
+    padding:20px 0;
+    border-top:1px solid var(--border);
+  }
+  .research-entry:first-of-type{ border-top:none; }
+  .research-entry:last-child{ border-bottom:1px solid var(--border); }
+  .research-entry h3{ font-size:17px; font-weight:600; }
+  .research-meta{
+    color:#448361;
+    font-size:13px;
+    font-weight:600;
+    margin-top:4px;
+  }
+  .research-entry p:last-child{
+    color:var(--text-dim);
+    font-size:14px;
+    margin-top:6px;
   }
 
   @media (max-width:480px){
@@ -249,6 +313,21 @@
     font-family:var(--mono);
     margin-top:2px;
   }
+  .role-details{
+    color:var(--text-dim);
+    font-size:13px;
+    margin-top:8px;
+  }
+  .company-group{ margin-bottom:24px; }
+  .company-name{
+    color:#d44c47;
+    font-size:14px;
+    font-weight:600;
+  }
+  .company-group > .role-city{ margin-top:2px; }
+  .company-group .experience-list{ margin-top:8px; }
+  .company-group .role{ padding-left:24px; }
+  .company-group .role:last-child{ border-bottom:none; }
 
   .col-label{
     display:inline-flex;
@@ -336,7 +415,21 @@
   }
 </style>
 </head>
-<body>
+<body id="top">
+
+<nav class="topnav" aria-label="Primary navigation">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="#top">manan</a>
+    <ul class="topnav-links">
+      <li><a href="#graph">Graph</a></li>
+      <li><a href="#connect">Connect</a></li>
+      <li><a href="#work">Work</a></li>
+    </ul>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.43-.03-.86-.09-1.28A7.01 7.01 0 0 1 13.28 3.09C12.86 3.03 12.43 3 12 3Z"/></svg>
+    </button>
+  </div>
+</nav>
 
 <div class="wrap">
 
@@ -353,7 +446,7 @@
     <p class="graph-note">this graph maps the people, organisations, institutions, and roles that have shaped my work. each node represents an entity, while each line shows a relationship between them. the colours distinguish the different areas, and the lighter shades indicate deeper levels in the structure. drag any node to explore the connections and rearrange the graph.</p>
 
     <div class="graph-card">
-      <svg id="kg-svg" viewBox="0 0 900 720"></svg>
+      <svg id="kg-svg" viewBox="0 0 900 840"></svg>
     </div>
 
     <div class="graph-legend">
@@ -361,6 +454,7 @@
       <span><i style="background:#9f6b53"></i>Industry</span>
       <span><i style="background:#448361"></i>Academic</span>
       <span><i style="background:#d44c47"></i>University</span>
+      <span><i style="background:#16858f"></i>Research</span>
     </div>
   </section>
 
@@ -384,6 +478,9 @@
       </a>
       <a class="port" href="https://www.youtube.com/@manansvr" target="_blank" rel="noopener" aria-label="YouTube">
         <svg class="port-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 7.2a2.5 2.5 0 0 0-1.76-1.77C17.68 5 12 5 12 5s-5.68 0-7.24.43A2.5 2.5 0 0 0 3 7.2 26 26 0 0 0 2.57 12 26 26 0 0 0 3 16.8a2.5 2.5 0 0 0 1.76 1.77C6.32 19 12 19 12 19s5.68 0 7.24-.43A2.5 2.5 0 0 0 21 16.8a26 26 0 0 0 .43-4.8A26 26 0 0 0 21 7.2ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg>
+      </a>
+      <a class="port" href="mailto:mananrathi@outlook.com" aria-label="Email">
+        <svg class="port-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5h18A1.5 1.5 0 0 1 22.5 7v10A1.5 1.5 0 0 1 21 18.5H3A1.5 1.5 0 0 1 1.5 17V7A1.5 1.5 0 0 1 3 5.5Zm0 2v.72l9 5.4 9-5.4V7.5H3Zm18 9V10.55l-8.49 5.09a1 1 0 0 1-1.02 0L3 10.55v5.95h18Z"/></svg>
       </a>
     </div>
   </section>
@@ -411,6 +508,7 @@
           <p class="role-company">ANZ Bank</p>
           <p class="role-city">Brisbane, Queensland, Australia</p>
           <p class="role-dates">Nov 2025 - Feb 2026</p>
+          <p class="role-details">Customer Privacy Protection, Proof of Concept</p>
         </div>
       </div>
       <div class="role">
@@ -419,6 +517,7 @@
           <p class="role-company">Dovetail Electric Aviation</p>
           <p class="role-city">Sydney, New South Wales, Australia</p>
           <p class="role-dates">Dec 2023 - May 2024</p>
+          <p class="role-details">Battery Degradation Prediction, Proof of Concept</p>
         </div>
       </div>
       </div>
@@ -434,26 +533,27 @@
           <p class="role-company">UNSW, School of Computer Science & Engineering</p>
           <p class="role-city">Sydney, New South Wales, Australia</p>
           <p class="role-dates">May 2025 - Present</p>
+          <p class="role-details">Cyber Security &amp; Security Engineering</p>
         </div>
       </div>
 
-      <div class="role">
-        <div>
-          <p class="role-title">Honours Researcher</p>
-          <p class="role-company">UNSW, School of Computer Science & Engineering</p>
-          <p class="role-city">Sydney, New South Wales, Australia</p>
-          <p class="role-dates">Sept 2025 - Aug 2026</p>
-        </div>
-      </div>
+      <article id="research" class="research-entry">
+        <h3 class="role-title">Honours Researcher</h3>
+        <p class="role-company">UNSW, School of Computer Science &amp; Engineering</p>
+        <p class="role-city">Sydney, New South Wales, Australia</p>
+        <p class="role-dates">Sept 2025 - Aug 2026</p>
+        <p class="role-details">Ontological GraphRAG Recommender</p>
+        <p class="role-details">Academic Supervisor: Dr. Shiva Abdoli, Dr. Ali Darejeh</p>
+      </article>
+      <article class="research-entry">
+        <h3><a href="https://ieeexplore.ieee.org/document/11574068" target="_blank" rel="noopener">Applying Model-Based Systems Engineering To Project-Based Learning: A Framework For Systems Thinking &amp; Design Integration</a></h3>
+        <p class="research-meta">IEEE Publication</p>
+      </article>
+      <article class="research-entry">
+        <h3><a href="https://www.cambridge.org/core/journals/proceedings-of-the-design-society/article/an-innovative-quality-function-deployment-approach-to-manage-design-requirements-in-a-team-design/189FB5E4D4E712C394E12B6712982B83" target="_blank" rel="noopener">An Innovative Quality Function Deployment Approach To Manage Design Requirements In A Team Design</a></h3>
+        <p class="research-meta">Proceedings of The Design Society</p>
+      </article>
 
-      <div class="role">
-        <div>
-          <p class="role-title">Systems Academic Liaison</p>
-          <p class="role-company">UNSW, SunSwift Racing</p>
-          <p class="role-city">Sydney, New South Wales, Australia</p>
-          <p class="role-dates">Sept 2024 - Aug 2026</p>
-        </div>
-      </div>
     </div>
     </div>
 
@@ -461,14 +561,28 @@
       <h3 class="experience-subsection-title">University</h3>
 
     <div class="experience-list">
+    <div class="company-group">
+      <p class="company-name">UNSW, SunSwift Racing</p>
+      <p class="role-city">Sydney, New South Wales, Australia</p>
+      <div class="experience-list">
+      <div class="role">
+        <div>
+          <p class="role-title">Systems Academic Liaison</p>
+          <p class="role-dates">Sept 2024 - Aug 2026</p>
+          <p class="role-details">Systems Engineering Pedagogy<br>Academic Supervisor: Dr. Shiva Abdoli, Dr. Divya Nair</p>
+        </div>
+      </div>
+
       <div class="role">
         <div>
           <p class="role-title">Systems Engineer</p>
-          <p class="role-company">UNSW, SunSwift Racing</p>
-          <p class="role-city">Sydney, New South Wales, Australia</p>
           <p class="role-dates">Sept 2023 - Aug 2026</p>
+          <p class="role-details">Requirements Engineering, Interfacing &amp; Integration, Project Life-Cycle</p>
         </div>
       </div>
+      </div>
+    </div>
+
       <div class="role">
         <div>
           <p class="role-title">External Relations Specialist</p>
@@ -495,12 +609,43 @@
   }, { threshold: 0.2 });
   roles.forEach(r => io.observe(r));
 
+  const themeToggle = document.querySelector('.theme-toggle');
+  const savedTheme = localStorage.getItem('theme');
+  if(savedTheme === 'dark') document.body.classList.add('dark-mode');
+
+  function updateThemeToggle(){
+    const darkMode = document.body.classList.contains('dark-mode');
+    themeToggle.setAttribute('aria-label', darkMode ? 'Switch to light mode' : 'Switch to dark mode');
+    themeToggle.setAttribute('title', darkMode ? 'Switch to light mode' : 'Switch to dark mode');
+    themeToggle.innerHTML = darkMode
+      ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V5a1 1 0 0 1 1-1Zm0 13a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM5 11a1 1 0 0 1 1 1 1 1 0 0 1-1 1H4a1 1 0 1 1 0-2h1Zm15 0a1 1 0 1 1 0 2h-1a1 1 0 1 1 0-2h1ZM6.34 6.34a1 1 0 0 1 1.41 0l.71.71a1 1 0 0 1-1.41 1.41l-.71-.71a1 1 0 0 1 0-1.41Zm10.61 10.61a1 1 0 0 1 1.41 0 1 1 0 0 1-1.41 1.41l-.71-.71a1 1 0 0 1 0-1.41l.71-.71ZM17.66 6.34a1 1 0 0 1 0 1.41l-.71.71a1 1 0 0 1-1.41-1.41l.71-.71a1 1 0 0 1 1.41 0ZM7.05 16.95a1 1 0 0 1 0 1.41 1 1 0 0 1-1.41-1.41l.71-.71a1 1 0 0 1 1.41 1.41l-.71.71ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"/></svg>'
+      : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.43-.03-.86-.09-1.28A7.01 7.01 0 0 1 13.28 3.09C12.86 3.03 12.43 3 12 3Z"/></svg>';
+  }
+  updateThemeToggle();
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+    updateThemeToggle();
+  });
+
+  const navLinks = document.querySelectorAll('.topnav-links a');
+  const sections = document.querySelectorAll('section[id]');
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
+      }
+    });
+  }, { rootMargin:'-25% 0px -65% 0px' });
+  sections.forEach(section => sectionObserver.observe(section));
+
   // knowledge graph
   const kgNodes = [
     { id:'manan',      label:'me',                                 group:'core',     level:0, r:24 },
     { id:'industry',   label:'Industry',                           group:'industry', level:1, r:17 },
     { id:'academic',   label:'Academic',                           group:'academic', level:1, r:17 },
     { id:'university', label:'University',                         group:'university', level:1, r:17 },
+    { id:'research',   label:'Research',                           group:'research',   level:2, r:14 },
     { id:'macquarie',  label:'Macquarie Group',                    group:'industry', level:2, r:12 },
     { id:'anz',        label:'ANZ Bank',                           group:'industry', level:2, r:12 },
     { id:'dovetail',   label:'Dovetail Electric Aviation',         group:'industry', level:2, r:12 },
@@ -512,16 +657,19 @@
     { id:'redback',    label:'RedBack Racing',                     group:'academic', level:3, r:12 },
     { id:'sunswift',   label:'SunSwift Racing',                    group:'academic', level:3, r:12 },
     { id:'external',   label:'External Relations Specialist',      group:'university', level:4, r:11 },
-    { id:'honours',    label:'Honours Researcher',                 group:'academic', level:3, r:11 },
     { id:'teaching',   label:'Teaching Academic',                  group:'academic', level:3, r:11 },
+    { id:'honours',    label:'Honours Researcher',                  group:'academic', level:3, r:11 },
     { id:'sal',        label:'Systems Academic Liaison',           group:'university', level:4, r:11 },
-    { id:'se',         label:'Systems Engineer',                   group:'university', level:4, r:11 }
+    { id:'se',         label:'Systems Engineer',                   group:'university', level:4, r:11 },
+    { id:'mbse-publication', label:'Applying Model-Based Systems Engineering To Project-Based Learning', group:'research', level:3, r:11 },
+    { id:'qfd-publication', label:'An Innovative Quality Function Deployment Approach To Manage Design Requirements', group:'research', level:3, r:11 }
   ];
 
   const kgLinks = [
     { source:'manan', target:'industry' },
     { source:'manan', target:'academic' },
     { source:'manan', target:'university' },
+    { source:'academic', target:'research' },
     { source:'industry', target:'macquarie' },
     { source:'industry', target:'anz' },
     { source:'industry', target:'dovetail' },
@@ -537,8 +685,15 @@
     { source:'sunswift', target:'sal' },
     { source:'university', target:'external' },
     { source:'university', target:'sal' },
-    { source:'cse', target:'honours' },
     { source:'cse', target:'teaching' },
+    { source:'cse', target:'honours' },
+    { source:'research', target:'honours' },
+    { source:'research', target:'mbse-publication' },
+    { source:'research', target:'qfd-publication' },
+    { source:'sunswift', target:'mbse-publication' },
+    { source:'sal', target:'mbse-publication' },
+    { source:'sunswift', target:'qfd-publication' },
+    { source:'sal', target:'qfd-publication' },
     { source:'university', target:'se' }
   ];
 
@@ -546,11 +701,12 @@
     core:'#2383e2',
     industry:'#9f6b53',
     academic:'#448361',
-    university:'#d44c47'
+    university:'#d44c47',
+    research:'#16858f'
   };
 
   const kgSvg = d3.select('#kg-svg');
-  const width = 900, height = 720;
+  const width = 900, height = 840;
 
   const linkSel = kgSvg.append('g')
     .selectAll('line')
