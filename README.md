@@ -1,1 +1,0 @@
-# manansvr.github.io
