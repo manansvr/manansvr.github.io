@@ -269,39 +269,6 @@
     border-color:#cfe2d3;
   }
 
-  /* books */
-  .book-list{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:20px;
-  }
-  .book{
-    display:block;
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:8px;
-    padding:20px;
-    box-shadow:0 1px 2px rgba(15,15,15,0.04);
-  }
-  .book-title{
-    font-size:15px;
-    font-weight:600;
-  }
-  .book-author{
-    font-size:12.5px;
-    color:var(--accent);
-    font-weight:600;
-    margin-top:3px;
-  }
-  .book-note{
-    font-size:13.5px;
-    color:var(--text-dim);
-    margin-top:10px;
-  }
-  @media (max-width:720px){
-    .book-list{ grid-template-columns:1fr; }
-  }
-
   /* knowledge graph */
   .graph-note{
     font-size:14px;
@@ -372,7 +339,6 @@
       <li><a href="#industry">Industry</a></li>
       <li><a href="#academic">Academic</a></li>
       <li><a href="#university">University</a></li>
-      <li><a href="#books">Library</a></li>
     </ul>
   </div>
 </nav>
@@ -397,10 +363,10 @@
     </div>
 
     <div class="graph-legend">
-      <span><i style="background:#2f76c2"></i>me</span>
-      <span><i style="background:#b26f3d"></i>Industry</span>
-      <span><i style="background:#4f8f5b"></i>Academic</span>
-      <span><i style="background:#b85c70"></i>University</span>
+      <span><i style="background:#2383e2"></i>me</span>
+      <span><i style="background:#9f6b53"></i>Industry</span>
+      <span><i style="background:#448361"></i>Academic</span>
+      <span><i style="background:#d44c47"></i>University</span>
     </div>
   </section>
 
@@ -527,26 +493,6 @@
     </div>
   </section>
 
-  <section id="books">
-    <div class="section-head">
-      <span class="section-tag">06</span>
-      <h2 class="section-title">Library</h2>
-    </div>
-
-    <div class="book-list">
-      <a class="book" href="https://www.dymocks.com.au/source-code-9798217070176" target="_blank" rel="noopener">
-        <p class="book-title">The Source Code</p>
-        <p class="book-author">Bill Gates</p>
-      </a>
-
-      <a class="book" href="https://www.dymocks.com.au/the-infinity-machine-by-sebastian-mallaby-9780241703557" target="_blank" rel="noopener">
-        <p class="book-title">The Infinity Machine</p>
-        <p class="book-author">Sebastian Mallaby</p>
-      </a>
-
-    </div>
-  </section>
-
 </div>
 
 <script>
@@ -609,10 +555,10 @@
   ];
 
   const groupColor = {
-    core:'#2f76c2',
-    industry:'#b26f3d',
-    academic:'#4f8f5b',
-    university:'#b85c70'
+    core:'#2383e2',
+    industry:'#9f6b53',
+    academic:'#448361',
+    university:'#d44c47'
   };
 
   const kgSvg = d3.select('#kg-svg');
