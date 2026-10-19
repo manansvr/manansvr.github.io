@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>myGraph | Manan Rathi</title>
+<meta name="description" content="manan is a manufacturing engineer focused on software systems, with published research and experience moving into banking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>
+  :root{
+    --bg:#fbfbfa;
+    --surface:#ffffff;
+    --surface-rgb:255,255,255;
+    --border:#e7d9c8;
+    --text:#40342b;
+    --text-dim:#806f62;
+    --accent:#b85c38;
+    --accent-hover:#94462a;
+    --accent-tint:#f7e4d7;
+    --nav-shadow:rgba(91,58,36,0.08);
+    --font: 'Aptos', 'Aptos Display', 'Public Sans', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    --mono: ui-monospace, 'SF Mono', Menlo, Monaco, Consolas, monospace;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font);
+    font-size:16px;
+    line-height:1.6;
+  }
+
+  a{color:inherit; text-decoration:none;}
+
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  header.hero{
+    padding:96px 0 72px;
+  }
+
+  .hero-content{
+    display:flex;
+    align-items:center;
+    gap:28px;
+  }
+  .profile-photo{
+    display:block;
+    width:clamp(120px, 18vw, 160px);
+    height:clamp(120px, 18vw, 160px);
+    flex:0 0 clamp(120px, 18vw, 160px);
+    object-fit:cover;
+    object-position:center;
+    border:2px solid var(--border);
+    border-radius:50%;
+  }
+  .hero-copy{
+    min-width:0;
+  }
+
+  .tagline{
+    font-family:var(--font);
+    font-weight:600;
+    font-size:15px;
+    color:var(--accent);
+    letter-spacing:0.02em;
+    margin-top:16px;
+  }
+
+  h1{
+    font-family:var(--font);
+    font-weight:600;
+    font-size:clamp(44px, 8vw, 72px);
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    color:var(--text);
+  }
+
+  .subhead{
+    font-size:clamp(16px, 2vw, 19px);
+    color:var(--text-dim);
+    max-width:none;
+    margin-top:20px;
+    font-weight:400;
+  }
+
+  nav.topnav{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:rgba(var(--surface-rgb),0.9);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--border);
+  }
+  .topnav-inner{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 28px;
+    height:56px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .topnav-brand{
+    font-weight:600;
+    font-size:15px;
+    color:var(--text);
+  }
+  .topnav-links{
+    display:flex;
+    gap:26px;
+    list-style:none;
+    min-width:0;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .topnav-links::-webkit-scrollbar{ display:none; }
+  .topnav-links a{
+    font-size:13.5px;
+    color:var(--text-dim);
+    font-weight:600;
+    padding:4px 0;
+    border-bottom:2px solid transparent;
+    transition:color 0.2s ease, border-color 0.2s ease;
+  }
+  .topnav-links a:hover{
+    color:var(--accent);
+    border-color:var(--accent);
+  }
+  .topnav-links a.active{
+    color:var(--accent);
+    border-color:var(--accent);
+  }
+  section{
+    padding:64px 0;
+    scroll-margin-top:70px;
+  }
+  #graph{ padding-bottom:24px; }
+  #work{ padding-top:24px; padding-bottom:24px; }
+  #education{ padding-top:24px; }
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin-bottom:32px;
+  }
+  .section-title{
+    font-weight:600;
+    font-size:clamp(22px, 3vw, 28px);
+  }
+
+  /* interfaces / links */
+  .interfaces{
+    display:grid;
+    grid-template-columns:repeat(6, minmax(0, 1fr));
+    gap:16px;
+    padding-bottom:56px;
+  }
+  .port{
+    position:relative;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    aspect-ratio:1;
+    padding:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 1px 2px rgba(91,58,36,0.06);
+    transition:box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .port:hover{
+    box-shadow:0 8px 24px rgba(91,58,36,0.12);
+    border-color:var(--accent);
+    transform:translateY(-2px);
+  }
+  .port-icon{
+    width:32px;
+    height:32px;
+    color:var(--text-dim);
+    fill:currentColor;
+    transition:color 0.2s ease, transform 0.2s ease;
+  }
+  .port:hover .port-icon{ color:var(--accent); transform:scale(1.08); }
+  .port::after{
+    content:attr(aria-label);
+    position:absolute;
+    top:calc(100% + 8px);
+    left:50%;
+    padding:4px 8px;
+    border-radius:4px;
+    background:var(--text);
+    color:var(--surface);
+    font-size:12px;
+    line-height:1.2;
+    white-space:nowrap;
+    opacity:0;
+    pointer-events:none;
+    transform:translate(-50%, -4px);
+    transition:opacity 0.2s ease, transform 0.2s ease;
+    z-index:2;
+  }
+  .port:hover::after,
+  .port:focus-visible::after{
+    opacity:1;
+    transform:translate(-50%, 0);
+  }
+
+  .research-intro{
+    color:var(--text-dim);
+    max-width:680px;
+    margin-bottom:28px;
+  }
+  .research-entry{
+    padding:20px 0;
+    border-top:1px solid var(--border);
+  }
+  .research-entry:first-of-type{ border-top:none; }
+  .research-entry:last-child{ border-bottom:1px solid var(--border); }
+  .research-entry h3{ font-size:17px; font-weight:600; }
+  .research-meta{
+    color:#9b6548;
+    font-size:13px;
+    font-weight:600;
+    margin-top:4px;
+  }
+  .research-entry p:last-child{
+    color:var(--text-dim);
+    font-size:14px;
+    margin-top:6px;
+  }
+
+  @media (max-width:480px){
+    .interfaces{ gap:8px; }
+    .port{ padding:14px; }
+  }
+  @media (max-width:640px){
+    .hero-content{
+      align-items:flex-start;
+      gap:18px;
+    }
+    .profile-photo{
+      width:96px;
+      height:96px;
+      flex-basis:96px;
+    }
+  }
+
+  /* experience lists */
+  .experience-subsection{
+    margin-top:40px;
+    scroll-margin-top:70px;
+  }
+  .section-head + .experience-subsection{ margin-top:0; }
+  .experience-subsection-title{
+    font-size:18px;
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  #banking .experience-subsection-title{ color:#a65f45; }
+  #manufacturing .experience-subsection-title{ color:#7f8050; }
+  #academic .experience-subsection-title{ color:#9b6548; }
+  #banking .role-company{ color:#a65f45; }
+  #manufacturing .role-company{ color:#7f8050; }
+  #academic .role-company{ color:#9b6548; }
+  .experience-list .role:first-child{ border-top:none; }
+
+  .role{
+    display:flex;
+    gap:14px;
+    padding:18px 0;
+    border-top:1px solid var(--border);
+    opacity:0;
+    transform:translateY(10px);
+    transition:opacity 0.5s ease, transform 0.5s ease;
+  }
+  .col-label + .role{ border-top:none; }
+  .role.in-view{ opacity:1; transform:translateY(0); }
+  .role:last-child{ border-bottom:1px solid var(--border); }
+
+  .role-logo{
+    width:42px;
+    height:42px;
+    flex:0 0 42px;
+    object-fit:contain;
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:5px;
+    background:var(--surface);
+  }
+
+  .role-title{
+    font-size:16px;
+    font-weight:600;
+  }
+  .role-company{
+    font-size:14px;
+    font-weight:600;
+    color:var(--accent);
+    margin-top:3px;
+  }
+  .role-city{
+    font-size:13px;
+    color:var(--text-dim);
+    margin-top:2px;
+  }
+  .role-dates{
+    font-size:12.5px;
+    color:var(--text-dim);
+    font-family:var(--mono);
+    margin-top:2px;
+  }
+  .role-details{
+    color:var(--text-dim);
+    font-size:13px;
+    margin-top:8px;
+  }
+  .company-group{ margin-bottom:24px; }
+  .company-name{
+    color:#d44c47;
+    font-size:14px;
+    font-weight:600;
+  }
+  .company-group > .role-city{ margin-top:2px; }
+  .company-group .experience-list{ margin-top:8px; }
+  .company-group .role{ padding-left:24px; }
+  .company-group .role:last-child{ border-bottom:none; }
+
+  .col-label{
+    display:inline-flex;
+    align-items:center;
+    font-size:14px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text);
+    background:var(--accent-tint);
+    border:1px solid var(--border);
+    border-radius:999px;
+    padding:6px 16px;
+    margin-bottom:14px;
+  }
+
+  .col-label.banking{
+    background:#f7efe8;
+    color:#8a4f21;
+    border-color:#ead8c7;
+  }
+
+  .col-label.manufacturing{
+    background:#ebf5ed;
+    color:#2f6942;
+    border-color:#cfe2d3;
+  }
+
+  .col-label.academic{
+    background:#e8f5f6;
+    color:#126a72;
+    border-color:#c9e3e5;
+  }
+
+  /* knowledge graph */
+  .graph-note{
+    font-size:14px;
+    color:var(--text-dim);
+    max-width:none;
+    margin:-16px 0 28px;
+  }
+  .graph-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    box-shadow:0 1px 2px rgba(91,58,36,0.06);
+    padding:8px;
+  }
+  .graph-card svg{
+    width:100%;
+    height:auto;
+    display:block;
+  }
+  .kg-link{ stroke:var(--border); stroke-width:1.4; }
+  .kg-node{ cursor:grab; }
+  .kg-node:active{ cursor:grabbing; }
+  .kg-node circle{ stroke:var(--surface); stroke-width:2; transition:filter 0.15s ease; }
+  .kg-node text{
+    font-family:var(--font);
+    font-size:11px;
+    fill:var(--text);
+    pointer-events:none;
+  }
+  .kg-node.dim circle{ opacity:0.25; }
+  .kg-node.dim text{ opacity:0.3; }
+  .kg-link.dim{ opacity:0.12; }
+
+  .graph-controls{
+    display:flex;
+    flex-wrap:nowrap;
+    gap:10px;
+    margin-top:22px;
+  }
+  .graph-controls select{
+    flex:1 1 0;
+    min-width:0;
+    color:var(--text);
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:5px;
+    min-height:34px;
+    padding:6px 10px;
+    font:inherit;
+    font-size:13px;
+  }
+  @media (max-width:640px){
+    .graph-controls{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+    }
+  }
+  .footer-intro{
+    color:var(--text-dim);
+    margin-bottom:22px;
+  }
+  #connect{
+    margin-top:48px;
+  }
+  .about-copy{
+    color:var(--text-dim);
+    max-width:none;
+    margin-top:8px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .role{ transition:none; opacity:1; transform:none; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body id="top">
+<nav class="topnav" aria-label="Primary navigation">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="myGraph.html#top">myGraph</a>
+    <ul class="topnav-links">
+      <li><a href="myGraph.html#graph" class="active">myGraph</a></li>
+      <li><a href="myExperience.html">myExperience</a></li>
+      <li><a href="myEducation.html">myEducation</a></li>
+      <li><a href="#connect">Connect</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="hero-content">
+      <img class="profile-photo" src="./profile-photo.png" alt="Manan Rathi" width="160" height="160" loading="eager">
+      <div class="hero-copy">
+        <h1>manan</h1>
+        <p class="tagline">software systems are where engineering, research, and real-world impact meet.</p>
+        <p class="subhead">a manufacturing engineer focused on software systems, with published research, now making his way into banking.</p>
+        <p class="about-copy"><strong>technical interests:</strong> systems engineering, software systems integration, and security engineering.</p>
+      </div>
+    </div>
+  </header>
+
+  <section id="graph">
+    <div class="section-head">
+      <h2 class="section-title">myGraph</h2>
+    </div>
+    <p class="graph-note">this graph maps the people, organisations, and roles that have shaped my work. each node represents an entity, while each line shows a relationship between them. the colours distinguish banking, manufacturing, academia experience, and research, and the lighter shades indicate deeper levels in the structure. drag any node to explore the connections and rearrange the graph.</p>
+
+    <div class="graph-card">
+      <svg id="kg-svg" viewBox="0 0 900 840"></svg>
+    </div>
+
+    <div class="graph-controls" aria-label="Filter graph details">
+      <select id="experience-filter" aria-label="Filter by experience area">
+        <option value="all">All Areas</option>
+        <option value="banking">Banking</option>
+        <option value="manufacturing">Manufacturing</option>
+        <option value="academic">Academia</option>
+        <option value="research">Research Papers</option>
+      </select>
+      <select id="organisation-filter" aria-label="Filter by organisation">
+        <option value="all">All Organisations</option>
+      </select>
+      <select id="role-type-filter" aria-label="Filter by role type">
+        <option value="all">All Role Types</option>
+      </select>
+      <select id="year-filter" aria-label="Filter by year">
+        <option value="all">All Years</option>
+      </select>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+<footer id="connect">
+    <div class="section-head">
+      <h2 class="section-title">Connect</h2>
+    </div>
+    <p class="footer-intro">interested in systems engineering, software systems integration, or research collaboration? let's get in touch.</p>
+
+    <div class="interfaces">
+      <a class="port" href="https://www.researchgate.net/profile/Manan-Rathi-2?ev=hdr_xprf" target="_blank" rel="noopener" aria-label="ResearchGate">
+        <svg class="port-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 6 8 4-8 4-8-4 8-4Zm-5 6.5V16c0 1.7 2.24 3 5 3s5-1.3 5-3v-3.5l-5 2.5-5-2.5ZM20 10v5h-1.5v-4.25L20 10Z"/></svg>
+      </a>
+      <a class="port" href="https://github.com/manansvr" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg class="port-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2.5a9.5 9.5 0 0 0-3 18.51c.48.09.65-.21.65-.46v-1.7c-2.65.58-3.21-1.13-3.21-1.13-.44-1.1-1.06-1.39-1.06-1.39-.87-.6.07-.59.07-.59.96.07 1.47.99 1.47.99.85 1.46 2.22 1.04 2.76.8.09-.62.33-1.04.6-1.28-2.12-.24-4.35-1.06-4.35-4.7 0-1.04.37-1.89.98-2.56-.1-.24-.43-1.21.09-2.53 0 0 .8-.26 2.62.98a9.1 9.1 0 0 1 4.76 0c1.82-1.24 2.62-.98 2.62-.98.52 1.32.19 2.29.09 2.53.61.67.98 1.52.98 2.56 0 3.65-2.23 4.46-4.36 4.69.34.3.65.88.65 1.78v2.65c0 .25.17.55.66.46A9.5 9.5 0 0 0 12 2.5Z" clip-rule="evenodd"/></svg>
+      </a>
+      <a class="port" href="https://www.goodreads.com/user/show/189700378-manan-rathi" target="_blank" rel="noopener" aria-label="GoodReads">
+        <svg class="port-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 4 12-1v3L6 7V4Zm-2 4 12-1v3L4 11V8Zm0 4 16-1v9H4v-8Zm2 2v4h12v-4H6Zm2 1h8v1.5H8V15Z"/></svg>
+      </a>
+      <a class="port" href="https://www.linkedin.com/in/manan-rathi/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg class="port-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7.5A1.5 1.5 0 1 0 5 4.5a1.5 1.5 0 0 0 0 3Zm-1.25 2h2.5v10h-2.5v-10Zm4 0h2.4v1.37h.03c.34-.65 1.18-1.67 2.73-1.67 2.92 0 3.46 1.92 3.46 4.42v5.55h-2.5v-4.92c0-1.17-.02-2.68-1.63-2.68-1.63 0-1.88 1.27-1.88 2.59v5.01h-2.5v-9.67Z"/></svg>
+      </a>
+      <a class="port" href="https://www.youtube.com/@manansvr" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg class="port-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 7.2a2.5 2.5 0 0 0-1.76-1.77C17.68 5 12 5 12 5s-5.68 0-7.24.43A2.5 2.5 0 0 0 3 7.2 26 26 0 0 0 2.57 12 26 26 0 0 0 3 16.8a2.5 2.5 0 0 0 1.76 1.77C6.32 19 12 19 12 19s5.68 0 7.24-.43A2.5 2.5 0 0 0 21 16.8a26 26 0 0 0 .43-4.8A26 26 0 0 0 21 7.2ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg>
+      </a>
+      <a class="port" href="mailto:mananrathi@outlook.com" aria-label="E-Mail">
+        <svg class="port-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5h18A1.5 1.5 0 0 1 22.5 7v10A1.5 1.5 0 0 1 21 18.5H3A1.5 1.5 0 0 1 1.5 17V7A1.5 1.5 0 0 1 3 5.5Zm0 2v.72l9 5.4 9-5.4V7.5H3Zm18 9V10.55l-8.49 5.09a1 1 0 0 1-1.02 0L3 10.55v5.95h18Z"/></svg>
+      </a>
+    </div>
+  </footer>
+</div>
+
+<script>
+const roles = document.querySelectorAll('.role');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  roles.forEach(r => io.observe(r));
+
+  const navLinks = document.querySelectorAll('.topnav-links a');
+  const pageLinks = [...navLinks].filter(link => !link.getAttribute('href').endsWith('#connect'));
+  const currentPageLink = pageLinks.find(link => link.classList.contains('active'));
+  const connectLink = [...navLinks].find(link => link.getAttribute('href').endsWith('#connect'));
+  const connectObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        pageLinks.forEach(link => link.classList.remove('active'));
+        connectLink.classList.add('active');
+      } else if(currentPageLink){
+        connectLink.classList.remove('active');
+        currentPageLink.classList.add('active');
+      }
+    });
+  }, { rootMargin:'-25% 0px -65% 0px' });
+  connectObserver.observe(document.querySelector('#connect'));
+
+  // knowledge graph
+  const kgNodes = [
+    { id:'manan',      label:'me',                                 group:'core',     level:0, r:24 },
+    { id:'banking',    label:'Banking',                            group:'banking', level:1, r:17 },
+    { id:'manufacturing', label:'Manufacturing',                   group:'manufacturing', level:1, r:17 },
+    { id:'academic',   label:'Academia',                           group:'academic', level:1, r:17 },
+    { id:'research',   label:'Research Papers',                    group:'research', level:2, r:14 },
+    { id:'mech',       label:'School of Mechanical & Manufacturing Engineering', group:'academic', level:2, r:14 },
+    { id:'cse',        label:'School of Computer Science & Engineering', group:'academic', level:2, r:14 },
+    { id:'macquarie',  label:'Macquarie Group',                    group:'banking', level:2, r:12 },
+    { id:'anz',        label:'ANZ',                                group:'banking', level:2, r:12 },
+    { id:'macquarie-role', label:'Associate Software Engineer',    group:'banking', level:3, r:11 },
+    { id:'anz-intern', label:'Software Engineer Intern',           group:'banking', level:3, r:11 },
+    { id:'sunswift',   label:'UNSW Sunswift Racing',               group:'manufacturing', level:2, r:12 },
+    { id:'dovetail',   label:'Dovetail Electric Aviation',         group:'manufacturing', level:2, r:12 },
+    { id:'redback',    label:'UNSW Redback Racing',                group:'manufacturing', level:2, r:12 },
+    { id:'sal',        label:'Systems Academic Liaison',           group:'manufacturing', level:3, r:11 },
+    { id:'se',         label:'Systems Engineer',                   group:'manufacturing', level:3, r:11 },
+    { id:'dovetail-se', label:'Systems Engineer',                  group:'manufacturing', level:3, r:11 },
+    { id:'external',   label:'External Relations Specialist',      group:'manufacturing', level:3, r:11 },
+    { id:'research-assistant', label:'Research Assistant',          group:'academic', level:2, r:11 },
+    { id:'teaching-academic',  label:'Teaching Academic',           group:'academic', level:2, r:11 },
+    { id:'mbse-publication', label:'Applying Model-Based Systems Engineering To Project-Based Learning', group:'research', level:3, r:11 },
+    { id:'qfd-publication', label:'An Innovative Quality Function Deployment Approach To Manage Design Requirements', group:'research', level:3, r:11 }
+  ];
+
+  const kgLinks = [
+    { source:'manan', target:'banking' },
+    { source:'manan', target:'manufacturing' },
+    { source:'manan', target:'academic' },
+    { source:'academic', target:'research' },
+    { source:'academic', target:'mech' },
+    { source:'academic', target:'cse' },
+    { source:'banking', target:'macquarie' },
+    { source:'banking', target:'anz' },
+    { source:'macquarie', target:'macquarie-role' },
+    { source:'anz', target:'anz-intern' },
+    { source:'manufacturing', target:'sunswift' },
+    { source:'manufacturing', target:'dovetail' },
+    { source:'manufacturing', target:'redback' },
+    { source:'sunswift', target:'se' },
+    { source:'sunswift', target:'sal' },
+    { source:'dovetail', target:'dovetail-se' },
+    { source:'redback', target:'external' },
+    { source:'mech', target:'research-assistant' },
+    { source:'cse', target:'teaching-academic' },
+    { source:'mech', target:'redback' },
+    { source:'mech', target:'sunswift' },
+    { source:'research', target:'research-assistant' },
+    { source:'research', target:'mbse-publication' },
+    { source:'research', target:'qfd-publication' },
+    { source:'sunswift', target:'mbse-publication' },
+    { source:'sal', target:'mbse-publication' },
+    { source:'sunswift', target:'qfd-publication' },
+    { source:'sal', target:'qfd-publication' }
+  ];
+
+  const nodeMetadata = {
+    banking: { startYear:2025, startMonth:11, endYear:2026, endMonth:12 },
+    manufacturing: { startYear:2023, startMonth:2, endYear:2026, endMonth:8 },
+    academic: { startYear:2023, startMonth:1, endYear:2026, endMonth:12 },
+    research: { startYear:2023, startMonth:1, endYear:2026, endMonth:12 },
+    macquarie: { organisation:'Macquarie Group', startYear:2026, startMonth:9 },
+    anz: { organisation:'ANZ', startYear:2025, startMonth:11, endYear:2026, endMonth:2 },
+    'macquarie-role': { organisation:'Macquarie Group', roleType:'Software Engineering', startYear:2026, startMonth:9 },
+    'anz-intern': { organisation:'ANZ', roleType:'Software Engineering', startYear:2025, startMonth:11, endYear:2026, endMonth:2 },
+    sunswift: { organisation:'UNSW Sunswift Racing', startYear:2023, startMonth:9, endYear:2026, endMonth:8 },
+    dovetail: { organisation:'Dovetail Electric Aviation', startYear:2023, startMonth:12, endYear:2024, endMonth:5 },
+    redback: { organisation:'UNSW Redback Racing', startYear:2023, startMonth:2, endYear:2024, endMonth:1 },
+    sal: { organisation:'UNSW Sunswift Racing', roleType:'Systems Engineering', startYear:2024, startMonth:9, endYear:2026, endMonth:8 },
+    se: { organisation:'UNSW Sunswift Racing', roleType:'Systems Engineering', startYear:2023, startMonth:9, endYear:2026, endMonth:8 },
+    'dovetail-se': { organisation:'Dovetail Electric Aviation', roleType:'Systems Engineering', startYear:2023, startMonth:12, endYear:2024, endMonth:5 },
+    external: { organisation:'UNSW Redback Racing', roleType:'External Relations', startYear:2023, startMonth:2, endYear:2024, endMonth:1 },
+    'research-assistant': { organisation:'UNSW', roleType:'Research', startYear:2026, startMonth:7, endYear:2026, endMonth:12 },
+    'teaching-academic': { organisation:'UNSW', roleType:'Teaching', startYear:2025, startMonth:5 },
+    'mbse-publication': { organisation:'UNSW', roleType:'Research', startYear:2023, startMonth:1 },
+    'qfd-publication': { organisation:'UNSW', roleType:'Research', startYear:2024, startMonth:1 }
+  };
+  kgNodes.forEach(node => Object.assign(node, {
+    organisation:null,
+    roleType:null,
+    startYear:null,
+    startMonth:null,
+    endYear:null,
+    endMonth:null
+  }, nodeMetadata[node.id]));
+
+  const groupColor = {
+    core:'#b85c38',
+    banking:'#a65f45',
+    manufacturing:'#7f8050',
+    academic:'#9b6548',
+    research:'#b47752'
+  };
+
+  const kgSvg = d3.select('#kg-svg');
+  const width = 900, height = 840;
+
+  const linkSel = kgSvg.append('g')
+    .selectAll('line')
+    .data(kgLinks)
+    .join('line')
+    .attr('class', 'kg-link');
+
+  const nodeSel = kgSvg.append('g')
+    .selectAll('g')
+    .data(kgNodes)
+    .join('g')
+    .attr('class', 'kg-node')
+    .call(drag());
+
+  nodeSel.append('circle')
+    .attr('r', d => d.r)
+    .attr('fill', d => d3.color(groupColor[d.group]).brighter(d.level * 0.65));
+
+  nodeSel.append('text')
+    .attr('x', d => d.r + 6)
+    .attr('y', 4)
+    .text(d => d.label);
+
+  const neighbours = {};
+  kgNodes.forEach(n => neighbours[n.id] = new Set([n.id]));
+  kgLinks.forEach(l => {
+    neighbours[l.source].add(l.target);
+    neighbours[l.target].add(l.source);
+  });
+
+  nodeSel
+    .on('mouseenter', (event, d) => {
+      nodeSel.classed('dim', n => !neighbours[d.id].has(n.id));
+      linkSel.classed('dim', l => l.source.id !== d.id && l.target.id !== d.id);
+    })
+    .on('mouseleave', () => {
+      nodeSel.classed('dim', false);
+      linkSel.classed('dim', false);
+    });
+
+  const nodesById = new Map(kgNodes.map(node => [node.id, node]));
+  const experienceFilter = document.querySelector('#experience-filter');
+  const organisationFilter = document.querySelector('#organisation-filter');
+  const roleTypeFilter = document.querySelector('#role-type-filter');
+  const yearFilter = document.querySelector('#year-filter');
+  const organisations = [...new Set(kgNodes.map(node => node.organisation).filter(Boolean))].sort();
+  const roleTypes = [...new Set(kgNodes.map(node => node.roleType).filter(Boolean))].sort();
+  const years = [...new Set(kgNodes.flatMap(node => [node.startYear, node.endYear]).filter(Boolean))].sort((a, b) => a - b);
+  organisations.forEach(value => organisationFilter.add(new Option(value, value)));
+  roleTypes.forEach(value => roleTypeFilter.add(new Option(value, value)));
+  years.forEach(value => yearFilter.add(new Option(value, value)));
+
+  const parentIds = new Map();
+  kgLinks.forEach(link => {
+    const sourceId = typeof link.source === 'object' ? link.source.id : link.source;
+    const targetId = typeof link.target === 'object' ? link.target.id : link.target;
+    if (!parentIds.has(targetId)) parentIds.set(targetId, []);
+    parentIds.get(targetId).push(sourceId);
+  });
+
+  function applyGraphFilters(){
+    const selectedGroup = experienceFilter.value;
+    const selectedOrganisation = organisationFilter.value;
+    const selectedRoleType = roleTypeFilter.value;
+    const selectedYear = yearFilter.value === 'all' ? null : Number(yearFilter.value);
+    const matchesFilters = node => {
+      const matchesGroup = selectedGroup === 'all' || node.group === selectedGroup;
+      const matchesOrganisation = selectedOrganisation === 'all' || node.organisation === selectedOrganisation;
+      const matchesRoleType = selectedRoleType === 'all' || node.roleType === selectedRoleType;
+      const matchesYear = selectedYear === null || (
+        node.startYear !== null &&
+        node.startYear <= selectedYear &&
+        (node.endYear === null || node.endYear >= selectedYear)
+      );
+      return matchesGroup && matchesOrganisation && matchesRoleType && matchesYear;
+    };
+
+    const visibleNodeIds = new Set(
+      kgNodes.filter(matchesFilters).map(node => node.id)
+    );
+    const addAncestors = nodeId => {
+      (parentIds.get(nodeId) || []).forEach(parentId => {
+        if (!visibleNodeIds.has(parentId)) {
+          visibleNodeIds.add(parentId);
+          addAncestors(parentId);
+        }
+      });
+    };
+    [...visibleNodeIds].forEach(addAncestors);
+    const visibleNodes = new Set(kgNodes.filter(node => visibleNodeIds.has(node.id)));
+
+    nodeSel.style('display', d => visibleNodes.has(d) ? null : 'none');
+    linkSel.style('display', l => {
+      const source = typeof l.source === 'object' ? l.source : nodesById.get(l.source);
+      const target = typeof l.target === 'object' ? l.target : nodesById.get(l.target);
+      return visibleNodes.has(source) && visibleNodes.has(target) ? null : 'none';
+    });
+  }
+
+  [experienceFilter, organisationFilter, roleTypeFilter, yearFilter].forEach(filter => {
+    filter.addEventListener('change', applyGraphFilters);
+  });
+
+  const simulation = d3.forceSimulation(kgNodes)
+    .force('link', d3.forceLink(kgLinks).id(d => d.id).distance(l => l.source.id === 'manan' || l.target.id === 'manan' ? 140 : 100).strength(0.9))
+    .force('charge', d3.forceManyBody().strength(-320))
+    .force('center', d3.forceCenter(width / 2, height / 2))
+    .force('collide', d3.forceCollide().radius(d => d.r + 60));
+
+  simulation.on('tick', () => {
+    linkSel
+      .attr('x1', d => d.source.x)
+      .attr('y1', d => d.source.y)
+      .attr('x2', d => d.target.x)
+      .attr('y2', d => d.target.y);
+
+    nodeSel.attr('transform', d => {
+      d.x = Math.max(d.r + 40, Math.min(width - d.r - 200, d.x));
+      d.y = Math.max(d.r + 20, Math.min(height - d.r - 20, d.y));
+      return `translate(${d.x},${d.y})`;
+    });
+  });
+
+  function drag(){
+    function dragstarted(event, d){
+      if (!event.active) simulation.alphaTarget(0.25).restart();
+      d.fx = d.x; d.fy = d.y;
+    }
+    function dragged(event, d){
+      d.fx = event.x; d.fy = event.y;
+    }
+    function dragended(event, d){
+      if (!event.active) simulation.alphaTarget(0);
+      d.fx = null; d.fy = null;
+    }
+    return d3.drag().on('start', dragstarted).on('drag', dragged).on('end', dragended);
+  }
+</script>
+
+</body>
+</html>

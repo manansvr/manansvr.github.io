@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Manan Rathi | Software Engineer & Researcher</title>
+<title>myExperience | Manan Rathi</title>
 <meta name="description" content="manan is a manufacturing engineer focused on software systems, with published research and experience moving into banking.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <style>
   :root{
     --bg:#fbfbfa;
@@ -235,7 +234,10 @@
     font-weight:600;
     margin-top:4px;
   }
-  .research-entry p:last-child{
+  .research-authors{
+    margin-top:14px;
+  }
+  .research-url{
     color:var(--text-dim);
     font-size:14px;
     margin-top:6px;
@@ -431,6 +433,9 @@
     color:var(--text-dim);
     margin-bottom:22px;
   }
+  #connect{
+    margin-top:48px;
+  }
   .about-copy{
     color:var(--text-dim);
     max-width:none;
@@ -444,68 +449,22 @@
 </style>
 </head>
 <body id="top">
-
 <nav class="topnav" aria-label="Primary navigation">
   <div class="topnav-inner">
-    <a class="topnav-brand" href="#top">manan</a>
+    <a class="topnav-brand" href="myGraph.html#top">myGraph</a>
     <ul class="topnav-links">
-      <li><a href="#graph">Graph</a></li>
-      <li><a href="#work">Experience</a></li>
-      <li><a href="#education">Education</a></li>
+      <li><a href="myGraph.html#graph">myGraph</a></li>
+      <li><a href="myExperience.html" class="active">myExperience</a></li>
+      <li><a href="myEducation.html">myEducation</a></li>
       <li><a href="#connect">Connect</a></li>
     </ul>
   </div>
 </nav>
 
 <div class="wrap">
-
-  <header class="hero">
-    <div class="hero-content">
-      <img class="profile-photo" src="./profile-photo.png" alt="Manan Rathi" width="160" height="160" loading="eager">
-      <div class="hero-copy">
-        <h1>manan</h1>
-        <p class="tagline">software systems are where engineering, research, and real-world impact meet.</p>
-        <p class="subhead">a manufacturing engineer focused on software systems, with published research, now making his way into banking.</p>
-        <p class="about-copy"><strong>technical interests:</strong> systems engineering, software systems integration, and security engineering.</p>
-      </div>
-    </div>
-  </header>
-
-  <section id="graph">
-    <div class="section-head">
-      <h2 class="section-title">Graph</h2>
-    </div>
-    <p class="graph-note">this graph maps the people, organisations, and roles that have shaped my work. each node represents an entity, while each line shows a relationship between them. the colours distinguish banking, manufacturing, academia experience, and research, and the lighter shades indicate deeper levels in the structure. drag any node to explore the connections and rearrange the graph.</p>
-
-    <div class="graph-card">
-      <svg id="kg-svg" viewBox="0 0 900 840"></svg>
-    </div>
-
-    <div class="graph-controls" aria-label="Filter graph details">
-      <select id="experience-filter" aria-label="Filter by experience area">
-        <option value="all">All Areas</option>
-        <option value="banking">Banking</option>
-        <option value="manufacturing">Manufacturing</option>
-        <option value="academic">Academia</option>
-        <option value="research">Research Papers</option>
-      </select>
-      <select id="organisation-filter" aria-label="Filter by organisation">
-        <option value="all">All Organisations</option>
-      </select>
-      <select id="role-type-filter" aria-label="Filter by role type">
-        <option value="all">All Role Types</option>
-      </select>
-      <select id="year-filter" aria-label="Filter by year">
-        <option value="all">All Years</option>
-      </select>
-    </div>
-  </section>
-
-
-
   <section id="work">
     <div class="section-head">
-      <h2 class="section-title">Experience</h2>
+      <h2 class="section-title">myExperience</h2>
     </div>
 
     <div id="banking" class="experience-subsection">
@@ -615,53 +574,23 @@
         <div class="research-entry">
           <h3><a href="https://www.researchgate.net/publication/408229505_Applying_Model-Based_Systems_Engineering_To_Project_Based_Learning_A_Framework_For_Systems_Thinking_Design_Integration" target="_blank" rel="noopener">Applying Model-Based Systems Engineering To Project-Based Learning: A Framework For Systems Thinking &amp; Design Integration</a></h3>
           <p class="research-meta">IEEE Publication</p>
+          <p class="research-authors">Authors: Manan Rathi, Christopher Winkle, Ilina Sharma, Tessa Sitjes, Ilisha Singh, Amrit Nandakishor, Sharan Balachandran, Andy Danis, Direshkrishna Roshandeivendra, Shiva Abdoli</p>
+          <p class="research-url"><a href="https://www.researchgate.net/publication/408229505_Applying_Model-Based_Systems_Engineering_To_Project_Based_Learning_A_Framework_For_Systems_Thinking_Design_Integration" target="_blank" rel="noopener">URL</a></p>
         </div>
 
         <div class="research-entry">
           <h3><a href="https://www.cambridge.org/core/journals/proceedings-of-the-design-society/article/an-innovative-quality-function-deployment-approach-to-manage-design-requirements-in-a-team-design/189FB5E4D4E712C394E12B6712982B83" target="_blank" rel="noopener">An Innovative Quality Function Deployment Approach To Manage Design Requirements In A Team Design</a></h3>
           <p class="research-meta">Proceedings of The Design Society</p>
+          <p class="research-authors">Authors: Andy Danis, Manan Rathi, Vaishnavi Nanda Kumar, Direshkrishna Roshandeivendra, Shourya Nitin Saklecha, Ilina Sharma, Christopher Winkle, Naveen Thayyil, Shiva Abdoli</p>
+          <p class="research-url"><a href="https://www.cambridge.org/core/journals/proceedings-of-the-design-society/article/an-innovative-quality-function-deployment-approach-to-manage-design-requirements-in-a-team-design/189FB5E4D4E712C394E12B6712982B83" target="_blank" rel="noopener">URL</a></p>
         </div>
       </div>
     </div>
   </section>
+</div>
 
-  <section id="education">
-    <div class="section-head">
-      <h2 class="section-title">Education</h2>
-    </div>
-    <div class="experience-list">
-      <div class="role">
-        <img class="role-logo" src="logos/unsw.jpeg" alt="UNSW logo" loading="lazy">
-        <div>
-          <p class="role-title">Bachelor of Engineering, Software Engineering</p>
-          <p class="role-company">UNSW</p>
-          <p class="role-city">Sydney, New South Wales, Australia</p>
-          <p class="role-dates">Sep 2022 - Aug 2026</p>
-          <p class="role-details">Honours Class 1</p>
-        </div>
-      </div>
-      <div class="role">
-        <img class="role-logo" src="logos/nps-international-school.jpeg" alt="NPS International School logo" loading="lazy">
-        <div>
-          <p class="role-title">International Baccalaureate Diploma Programme</p>
-          <p class="role-company">NPS International School</p>
-          <p class="role-city">Singapore</p>
-          <p class="role-dates">Aug 2020 - May 2022</p>
-        </div>
-      </div>
-      <div class="role">
-        <img class="role-logo" src="logos/nps-international-school.jpeg" alt="NPS International School logo" loading="lazy">
-        <div>
-          <p class="role-title">International General Certificate of Secondary Education</p>
-          <p class="role-company">NPS International School</p>
-          <p class="role-city">Singapore</p>
-          <p class="role-dates">Aug 2018 - May 2020</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer id="connect">
+<div class="wrap">
+<footer id="connect">
     <div class="section-head">
       <h2 class="section-title">Connect</h2>
     </div>
@@ -683,7 +612,7 @@
       <a class="port" href="https://www.youtube.com/@manansvr" target="_blank" rel="noopener" aria-label="YouTube">
         <svg class="port-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 7.2a2.5 2.5 0 0 0-1.76-1.77C17.68 5 12 5 12 5s-5.68 0-7.24.43A2.5 2.5 0 0 0 3 7.2 26 26 0 0 0 2.57 12 26 26 0 0 0 3 16.8a2.5 2.5 0 0 0 1.76 1.77C6.32 19 12 19 12 19s5.68 0 7.24-.43A2.5 2.5 0 0 0 21 16.8a26 26 0 0 0 .43-4.8A26 26 0 0 0 21 7.2ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg>
       </a>
-      <a class="port" href="mailto:mananrathi@outlook.com" aria-label="Email">
+      <a class="port" href="mailto:mananrathi@outlook.com" aria-label="E-Mail">
         <svg class="port-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5h18A1.5 1.5 0 0 1 22.5 7v10A1.5 1.5 0 0 1 21 18.5H3A1.5 1.5 0 0 1 1.5 17V7A1.5 1.5 0 0 1 3 5.5Zm0 2v.72l9 5.4 9-5.4V7.5H3Zm18 9V10.55l-8.49 5.09a1 1 0 0 1-1.02 0L3 10.55v5.95h18Z"/></svg>
       </a>
     </div>
@@ -691,7 +620,7 @@
 </div>
 
 <script>
-  const roles = document.querySelectorAll('.role');
+const roles = document.querySelectorAll('.role');
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
@@ -703,250 +632,21 @@
   roles.forEach(r => io.observe(r));
 
   const navLinks = document.querySelectorAll('.topnav-links a');
-  const sections = document.querySelectorAll('section[id]');
-  const sectionObserver = new IntersectionObserver((entries) => {
+  const pageLinks = [...navLinks].filter(link => !link.getAttribute('href').endsWith('#connect'));
+  const currentPageLink = pageLinks.find(link => link.classList.contains('active'));
+  const connectLink = [...navLinks].find(link => link.getAttribute('href').endsWith('#connect'));
+  const connectObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
-        navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
+        pageLinks.forEach(link => link.classList.remove('active'));
+        connectLink.classList.add('active');
+      } else if(currentPageLink){
+        connectLink.classList.remove('active');
+        currentPageLink.classList.add('active');
       }
     });
   }, { rootMargin:'-25% 0px -65% 0px' });
-  sections.forEach(section => sectionObserver.observe(section));
-
-  // knowledge graph
-  const kgNodes = [
-    { id:'manan',      label:'me',                                 group:'core',     level:0, r:24 },
-    { id:'banking',    label:'Banking',                            group:'banking', level:1, r:17 },
-    { id:'manufacturing', label:'Manufacturing',                   group:'manufacturing', level:1, r:17 },
-    { id:'academic',   label:'Academia',                           group:'academic', level:1, r:17 },
-    { id:'research',   label:'Research Papers',                    group:'research', level:2, r:14 },
-    { id:'mech',       label:'School of Mechanical & Manufacturing Engineering', group:'academic', level:2, r:14 },
-    { id:'cse',        label:'School of Computer Science & Engineering', group:'academic', level:2, r:14 },
-    { id:'macquarie',  label:'Macquarie Group',                    group:'banking', level:2, r:12 },
-    { id:'anz',        label:'ANZ',                                group:'banking', level:2, r:12 },
-    { id:'macquarie-role', label:'Associate Software Engineer',    group:'banking', level:3, r:11 },
-    { id:'anz-intern', label:'Software Engineer Intern',           group:'banking', level:3, r:11 },
-    { id:'sunswift',   label:'UNSW Sunswift Racing',               group:'manufacturing', level:2, r:12 },
-    { id:'dovetail',   label:'Dovetail Electric Aviation',         group:'manufacturing', level:2, r:12 },
-    { id:'redback',    label:'UNSW Redback Racing',                group:'manufacturing', level:2, r:12 },
-    { id:'sal',        label:'Systems Academic Liaison',           group:'manufacturing', level:3, r:11 },
-    { id:'se',         label:'Systems Engineer',                   group:'manufacturing', level:3, r:11 },
-    { id:'dovetail-se', label:'Systems Engineer',                  group:'manufacturing', level:3, r:11 },
-    { id:'external',   label:'External Relations Specialist',      group:'manufacturing', level:3, r:11 },
-    { id:'research-assistant', label:'Research Assistant',          group:'academic', level:2, r:11 },
-    { id:'teaching-academic',  label:'Teaching Academic',           group:'academic', level:2, r:11 },
-    { id:'mbse-publication', label:'Applying Model-Based Systems Engineering To Project-Based Learning', group:'research', level:3, r:11 },
-    { id:'qfd-publication', label:'An Innovative Quality Function Deployment Approach To Manage Design Requirements', group:'research', level:3, r:11 }
-  ];
-
-  const kgLinks = [
-    { source:'manan', target:'banking' },
-    { source:'manan', target:'manufacturing' },
-    { source:'manan', target:'academic' },
-    { source:'academic', target:'research' },
-    { source:'academic', target:'mech' },
-    { source:'academic', target:'cse' },
-    { source:'banking', target:'macquarie' },
-    { source:'banking', target:'anz' },
-    { source:'macquarie', target:'macquarie-role' },
-    { source:'anz', target:'anz-intern' },
-    { source:'manufacturing', target:'sunswift' },
-    { source:'manufacturing', target:'dovetail' },
-    { source:'manufacturing', target:'redback' },
-    { source:'sunswift', target:'se' },
-    { source:'sunswift', target:'sal' },
-    { source:'dovetail', target:'dovetail-se' },
-    { source:'redback', target:'external' },
-    { source:'mech', target:'research-assistant' },
-    { source:'cse', target:'teaching-academic' },
-    { source:'mech', target:'redback' },
-    { source:'mech', target:'sunswift' },
-    { source:'research', target:'research-assistant' },
-    { source:'research', target:'mbse-publication' },
-    { source:'research', target:'qfd-publication' },
-    { source:'sunswift', target:'mbse-publication' },
-    { source:'sal', target:'mbse-publication' },
-    { source:'sunswift', target:'qfd-publication' },
-    { source:'sal', target:'qfd-publication' }
-  ];
-
-  const nodeMetadata = {
-    banking: { startYear:2025, startMonth:11, endYear:2026, endMonth:12 },
-    manufacturing: { startYear:2023, startMonth:2, endYear:2026, endMonth:8 },
-    academic: { startYear:2023, startMonth:1, endYear:2026, endMonth:12 },
-    research: { startYear:2023, startMonth:1, endYear:2026, endMonth:12 },
-    macquarie: { organisation:'Macquarie Group', startYear:2026, startMonth:9 },
-    anz: { organisation:'ANZ', startYear:2025, startMonth:11, endYear:2026, endMonth:2 },
-    'macquarie-role': { organisation:'Macquarie Group', roleType:'Software Engineering', startYear:2026, startMonth:9 },
-    'anz-intern': { organisation:'ANZ', roleType:'Software Engineering', startYear:2025, startMonth:11, endYear:2026, endMonth:2 },
-    sunswift: { organisation:'UNSW Sunswift Racing', startYear:2023, startMonth:9, endYear:2026, endMonth:8 },
-    dovetail: { organisation:'Dovetail Electric Aviation', startYear:2023, startMonth:12, endYear:2024, endMonth:5 },
-    redback: { organisation:'UNSW Redback Racing', startYear:2023, startMonth:2, endYear:2024, endMonth:1 },
-    sal: { organisation:'UNSW Sunswift Racing', roleType:'Systems Engineering', startYear:2024, startMonth:9, endYear:2026, endMonth:8 },
-    se: { organisation:'UNSW Sunswift Racing', roleType:'Systems Engineering', startYear:2023, startMonth:9, endYear:2026, endMonth:8 },
-    'dovetail-se': { organisation:'Dovetail Electric Aviation', roleType:'Systems Engineering', startYear:2023, startMonth:12, endYear:2024, endMonth:5 },
-    external: { organisation:'UNSW Redback Racing', roleType:'External Relations', startYear:2023, startMonth:2, endYear:2024, endMonth:1 },
-    'research-assistant': { organisation:'UNSW', roleType:'Research', startYear:2026, startMonth:7, endYear:2026, endMonth:12 },
-    'teaching-academic': { organisation:'UNSW', roleType:'Teaching', startYear:2025, startMonth:5 },
-    'mbse-publication': { organisation:'UNSW', roleType:'Research', startYear:2023, startMonth:1 },
-    'qfd-publication': { organisation:'UNSW', roleType:'Research', startYear:2024, startMonth:1 }
-  };
-  kgNodes.forEach(node => Object.assign(node, {
-    organisation:null,
-    roleType:null,
-    startYear:null,
-    startMonth:null,
-    endYear:null,
-    endMonth:null
-  }, nodeMetadata[node.id]));
-
-  const groupColor = {
-    core:'#b85c38',
-    banking:'#a65f45',
-    manufacturing:'#7f8050',
-    academic:'#9b6548',
-    research:'#b47752'
-  };
-
-  const kgSvg = d3.select('#kg-svg');
-  const width = 900, height = 840;
-
-  const linkSel = kgSvg.append('g')
-    .selectAll('line')
-    .data(kgLinks)
-    .join('line')
-    .attr('class', 'kg-link');
-
-  const nodeSel = kgSvg.append('g')
-    .selectAll('g')
-    .data(kgNodes)
-    .join('g')
-    .attr('class', 'kg-node')
-    .call(drag());
-
-  nodeSel.append('circle')
-    .attr('r', d => d.r)
-    .attr('fill', d => d3.color(groupColor[d.group]).brighter(d.level * 0.65));
-
-  nodeSel.append('text')
-    .attr('x', d => d.r + 6)
-    .attr('y', 4)
-    .text(d => d.label);
-
-  const neighbours = {};
-  kgNodes.forEach(n => neighbours[n.id] = new Set([n.id]));
-  kgLinks.forEach(l => {
-    neighbours[l.source].add(l.target);
-    neighbours[l.target].add(l.source);
-  });
-
-  nodeSel
-    .on('mouseenter', (event, d) => {
-      nodeSel.classed('dim', n => !neighbours[d.id].has(n.id));
-      linkSel.classed('dim', l => l.source.id !== d.id && l.target.id !== d.id);
-    })
-    .on('mouseleave', () => {
-      nodeSel.classed('dim', false);
-      linkSel.classed('dim', false);
-    });
-
-  const nodesById = new Map(kgNodes.map(node => [node.id, node]));
-  const experienceFilter = document.querySelector('#experience-filter');
-  const organisationFilter = document.querySelector('#organisation-filter');
-  const roleTypeFilter = document.querySelector('#role-type-filter');
-  const yearFilter = document.querySelector('#year-filter');
-  const organisations = [...new Set(kgNodes.map(node => node.organisation).filter(Boolean))].sort();
-  const roleTypes = [...new Set(kgNodes.map(node => node.roleType).filter(Boolean))].sort();
-  const years = [...new Set(kgNodes.flatMap(node => [node.startYear, node.endYear]).filter(Boolean))].sort((a, b) => a - b);
-  organisations.forEach(value => organisationFilter.add(new Option(value, value)));
-  roleTypes.forEach(value => roleTypeFilter.add(new Option(value, value)));
-  years.forEach(value => yearFilter.add(new Option(value, value)));
-
-  const parentIds = new Map();
-  kgLinks.forEach(link => {
-    const sourceId = typeof link.source === 'object' ? link.source.id : link.source;
-    const targetId = typeof link.target === 'object' ? link.target.id : link.target;
-    if (!parentIds.has(targetId)) parentIds.set(targetId, []);
-    parentIds.get(targetId).push(sourceId);
-  });
-
-  function applyGraphFilters(){
-    const selectedGroup = experienceFilter.value;
-    const selectedOrganisation = organisationFilter.value;
-    const selectedRoleType = roleTypeFilter.value;
-    const selectedYear = yearFilter.value === 'all' ? null : Number(yearFilter.value);
-    const matchesFilters = node => {
-      const matchesGroup = selectedGroup === 'all' || node.group === selectedGroup;
-      const matchesOrganisation = selectedOrganisation === 'all' || node.organisation === selectedOrganisation;
-      const matchesRoleType = selectedRoleType === 'all' || node.roleType === selectedRoleType;
-      const matchesYear = selectedYear === null || (
-        node.startYear !== null &&
-        node.startYear <= selectedYear &&
-        (node.endYear === null || node.endYear >= selectedYear)
-      );
-      return matchesGroup && matchesOrganisation && matchesRoleType && matchesYear;
-    };
-
-    const visibleNodeIds = new Set(
-      kgNodes.filter(matchesFilters).map(node => node.id)
-    );
-    const addAncestors = nodeId => {
-      (parentIds.get(nodeId) || []).forEach(parentId => {
-        if (!visibleNodeIds.has(parentId)) {
-          visibleNodeIds.add(parentId);
-          addAncestors(parentId);
-        }
-      });
-    };
-    [...visibleNodeIds].forEach(addAncestors);
-    const visibleNodes = new Set(kgNodes.filter(node => visibleNodeIds.has(node.id)));
-
-    nodeSel.style('display', d => visibleNodes.has(d) ? null : 'none');
-    linkSel.style('display', l => {
-      const source = typeof l.source === 'object' ? l.source : nodesById.get(l.source);
-      const target = typeof l.target === 'object' ? l.target : nodesById.get(l.target);
-      return visibleNodes.has(source) && visibleNodes.has(target) ? null : 'none';
-    });
-  }
-
-  [experienceFilter, organisationFilter, roleTypeFilter, yearFilter].forEach(filter => {
-    filter.addEventListener('change', applyGraphFilters);
-  });
-
-  const simulation = d3.forceSimulation(kgNodes)
-    .force('link', d3.forceLink(kgLinks).id(d => d.id).distance(l => l.source.id === 'manan' || l.target.id === 'manan' ? 140 : 100).strength(0.9))
-    .force('charge', d3.forceManyBody().strength(-320))
-    .force('center', d3.forceCenter(width / 2, height / 2))
-    .force('collide', d3.forceCollide().radius(d => d.r + 60));
-
-  simulation.on('tick', () => {
-    linkSel
-      .attr('x1', d => d.source.x)
-      .attr('y1', d => d.source.y)
-      .attr('x2', d => d.target.x)
-      .attr('y2', d => d.target.y);
-
-    nodeSel.attr('transform', d => {
-      d.x = Math.max(d.r + 40, Math.min(width - d.r - 200, d.x));
-      d.y = Math.max(d.r + 20, Math.min(height - d.r - 20, d.y));
-      return `translate(${d.x},${d.y})`;
-    });
-  });
-
-  function drag(){
-    function dragstarted(event, d){
-      if (!event.active) simulation.alphaTarget(0.25).restart();
-      d.fx = d.x; d.fy = d.y;
-    }
-    function dragged(event, d){
-      d.fx = event.x; d.fy = event.y;
-    }
-    function dragended(event, d){
-      if (!event.active) simulation.alphaTarget(0);
-      d.fx = null; d.fy = null;
-    }
-    return d3.drag().on('start', dragstarted).on('drag', dragged).on('end', dragended);
-  }
+  connectObserver.observe(document.querySelector('#connect'));
 </script>
 
 </body>
