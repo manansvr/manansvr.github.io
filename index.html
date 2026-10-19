@@ -816,23 +816,45 @@
   roleTypes.forEach(value => roleTypeFilter.add(new Option(value, value)));
   years.forEach(value => yearFilter.add(new Option(value, value)));
 
+  const parentIds = new Map();
+  kgLinks.forEach(link => {
+    const sourceId = typeof link.source === 'object' ? link.source.id : link.source;
+    const targetId = typeof link.target === 'object' ? link.target.id : link.target;
+    if (!parentIds.has(targetId)) parentIds.set(targetId, []);
+    parentIds.get(targetId).push(sourceId);
+  });
+
   function applyGraphFilters(){
     const selectedGroup = experienceFilter.value;
     const selectedOrganisation = organisationFilter.value;
     const selectedRoleType = roleTypeFilter.value;
     const selectedYear = yearFilter.value === 'all' ? null : Number(yearFilter.value);
-    const isVisible = node => {
-      const matchesGroup = selectedGroup === 'all' || node.group === 'core' || node.group === selectedGroup;
-      const matchesOrganisation = node.group === 'core' || !node.organisation || selectedOrganisation === 'all' || node.organisation === selectedOrganisation;
-      const matchesRoleType = node.group === 'core' || !node.roleType || selectedRoleType === 'all' || node.roleType === selectedRoleType;
-      const matchesYear = node.group === 'core' || node.startYear === null || selectedYear === null || (
+    const matchesFilters = node => {
+      const matchesGroup = selectedGroup === 'all' || node.group === selectedGroup;
+      const matchesOrganisation = selectedOrganisation === 'all' || node.organisation === selectedOrganisation;
+      const matchesRoleType = selectedRoleType === 'all' || node.roleType === selectedRoleType;
+      const matchesYear = selectedYear === null || (
         node.startYear !== null &&
         node.startYear <= selectedYear &&
         (node.endYear === null || node.endYear >= selectedYear)
       );
       return matchesGroup && matchesOrganisation && matchesRoleType && matchesYear;
     };
-    const visibleNodes = new Set(kgNodes.filter(isVisible));
+
+    const visibleNodeIds = new Set(
+      kgNodes.filter(matchesFilters).map(node => node.id)
+    );
+    const addAncestors = nodeId => {
+      (parentIds.get(nodeId) || []).forEach(parentId => {
+        if (!visibleNodeIds.has(parentId)) {
+          visibleNodeIds.add(parentId);
+          addAncestors(parentId);
+        }
+      });
+    };
+    [...visibleNodeIds].forEach(addAncestors);
+    const visibleNodes = new Set(kgNodes.filter(node => visibleNodeIds.has(node.id)));
+
     nodeSel.style('display', d => visibleNodes.has(d) ? null : 'none');
     linkSel.style('display', l => {
       const source = typeof l.source === 'object' ? l.source : nodesById.get(l.source);
