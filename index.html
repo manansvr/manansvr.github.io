@@ -49,6 +49,25 @@
     padding:96px 0 72px;
   }
 
+  .hero-content{
+    display:flex;
+    align-items:center;
+    gap:28px;
+  }
+  .profile-photo{
+    display:block;
+    width:clamp(120px, 18vw, 160px);
+    height:clamp(120px, 18vw, 160px);
+    flex:0 0 clamp(120px, 18vw, 160px);
+    object-fit:cover;
+    object-position:center;
+    border:2px solid var(--border);
+    border-radius:50%;
+  }
+  .hero-copy{
+    min-width:0;
+  }
+
   .tagline{
     font-family:var(--font);
     font-weight:600;
@@ -224,6 +243,17 @@
   @media (max-width:480px){
     .interfaces{ gap:8px; }
     .port{ padding:14px; }
+  }
+  @media (max-width:640px){
+    .hero-content{
+      align-items:flex-start;
+      gap:18px;
+    }
+    .profile-photo{
+      width:96px;
+      height:96px;
+      flex-basis:96px;
+    }
   }
 
   /* experience lists */
@@ -429,10 +459,15 @@
 <div class="wrap">
 
   <header class="hero">
-    <h1>manan</h1>
-    <p class="tagline">software systems are where engineering, research, and real-world impact meet.</p>
-    <p class="subhead">a manufacturing engineer focused on software systems, with published research, now making his way into banking.</p>
-    <p class="about-copy"><strong>technical interests:</strong> systems engineering, software systems integration, and security engineering.</p>
+    <div class="hero-content">
+      <img class="profile-photo" src="./profile-photo.png" alt="Manan Rathi" width="160" height="160" loading="eager">
+      <div class="hero-copy">
+        <h1>manan</h1>
+        <p class="tagline">software systems are where engineering, research, and real-world impact meet.</p>
+        <p class="subhead">a manufacturing engineer focused on software systems, with published research, now making his way into banking.</p>
+        <p class="about-copy"><strong>technical interests:</strong> systems engineering, software systems integration, and security engineering.</p>
+      </div>
+    </div>
   </header>
 
   <section id="graph">
@@ -601,6 +636,7 @@
           <p class="role-company">UNSW</p>
           <p class="role-city">Sydney, New South Wales, Australia</p>
           <p class="role-dates">Sep 2022 - Aug 2026</p>
+          <p class="role-details">Honours Class 1</p>
         </div>
       </div>
       <div class="role">
@@ -610,6 +646,15 @@
           <p class="role-company">NPS International School</p>
           <p class="role-city">Singapore</p>
           <p class="role-dates">Aug 2020 - May 2022</p>
+        </div>
+      </div>
+      <div class="role">
+        <img class="role-logo" src="logos/nps-international-school.jpeg" alt="NPS International School logo" loading="lazy">
+        <div>
+          <p class="role-title">International General Certificate of Secondary Education</p>
+          <p class="role-company">NPS International School</p>
+          <p class="role-city">Singapore</p>
+          <p class="role-dates">Aug 2018 - May 2020</p>
         </div>
       </div>
     </div>
